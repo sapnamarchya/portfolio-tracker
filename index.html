@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Portfolio</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { padding: 8px; border: 1px solid #ccc; text-align: center; }
+    th { background: #f4f4f4; }
+  </style>
+</head>
+<body>
+
+<h2>📊 My Portfolio</h2>
+
+<table id="table">
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Qty</th>
+    <th>Buy Price</th>
+  </tr>
+</table>
+
+<script>
+const SCRIPT_URL = "YOUR_SCRIPT_URL";
+
+// JSONP loader
+function loadJSONP(url, callbackName) {
+  const script = document.createElement("script");
+  script.src = url + "?callback=" + callbackName;
+  document.body.appendChild(script);
+}
+
+// Callback function
+function handleData(data) {
+  const table = document.getElementById("table");
+
+  data.forEach(row => {
+    const html = `
+      <tr>
+        <td>${row["Name"]}</td>
+        <td>${row["Type"]}</td>
+        <td>${row["Quantity"]}</td>
+        <td>${row["Buy Price"]}</td>
+      </tr>
+    `;
+    table.innerHTML += html;
+  });
+}
+
+// Call API
+loadJSONP(SCRIPT_URL, "handleData");
+</script>
+
+</body>
+</html>
